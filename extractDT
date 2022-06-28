@@ -1,0 +1,19 @@
+Function extractDt(fileName As String) As Date 'will extract numbers from a string and convert it into date data type
+
+   Dim strNum As String, Dt As Date
+    With CreateObject("VBScript.RegExp")
+        .Pattern = "(\d{4,6})" 'number digits, from 4 to 6
+        .Global = True
+        If .test(fileName) Then
+            strNum = CStr(.Execute(fileName)(0))
+        End If
+    End With
+    If Len(strNum) = 6 Then
+        Dt = DateSerial(20 & CLng(Right(strNum, 2)), CLng(Mid(strNum, 3, 2)), CLng(Left(strNum, 2)))
+   ElseIf Len(strNum) = 5 Then
+        Dt = DateSerial(20 & CLng(Right(strNum, 2)), CLng(Mid(strNum, 2, 2)), CLng(Left(strNum, 1)))
+   ElseIf Len(strNum) = 4 Then
+        Dt = DateSerial(20 & CLng(Right(strNum, 2)), CLng(Mid(strNum, 2, 1)), CLng(Left(strNum, 1)))
+   End If
+   extractDt = Dt
+End Function
